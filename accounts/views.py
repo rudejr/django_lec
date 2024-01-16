@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from accounts.forms import SignupForm
 
@@ -8,8 +9,11 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-        return redirect('/')
+            return redirect('/')
     else:
         form = SignupForm()
     return render(request, 'accounts/signup.html', {'form':form})
 
+def logout_view(request):
+    logout(request)
+    return redirect('/')

@@ -1,37 +1,21 @@
-<!DOCTYPE html>
-<html lang="ko">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Small Business - Start Bootstrap Template</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    </head>
-    <body>
-        {% extends 'base.html' %}
-        {% block content %}
-        <div class="container px-4 px-lg-5">
-            <!-- 두 번째 상품 -->
-            <div class="row gx-4 gx-lg-5 align-items-center my-5">
-                <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." /></div>
-                <div class="col-lg-5">
-                    <h1 class="font-weight-light">{{ content_list.0.title }}</h1>
-                    <p> {{ content_list.0.content | truncatewords:30}} </p>
-                    <a class="btn btn-primary" href="{% url 'detail' content_list.0.id  %}"> 상품 상세보기 </a>
-                </div>
-            </div>
-            <!-- 첫 번째 상품 -->
-            <div class="row gx-4 gx-lg-5 align-items-center my-5">
-                <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." /></div>
-                <div class="col-lg-5">
-                    <h1 class="font-weight-light">{{ content_list.1.title }}</h1>
-                    <p> {{ content_list.1.content | truncatewords:30}} </p>
-                    <a class="btn btn-primary" href="{% url 'detail' content_list.1.id  %}"> 상품 상세보기 </a>
-                </div>
-            </div>
+{% extends 'base.html' %}
+{% block content %}
+<!-- Page Content-->
+<div class="container px-4 px-lg-5">
+    <!-- Heading Row-->
+{% if content_list %}
+    {% for content in content_list %}
+    <div class="row gx-4 gx-lg-5 align-items-center my-5">
+        <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." /></div>
+        <div class="col-lg-5">
+            <h1 class="font-weight-light">{{ content.title }}</h1>
+            <p>{{ content.content | truncatewords:30 }}</p>
+            <a class="btn btn-primary" href="{% url 'detail' content.id %}">상품 상세보기</a>
         </div>
-        {% endblock %}
-    </body>
-</html>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>content가 없습니다.</p>
+{% endif %}
+</div>
+{% endblock %}
